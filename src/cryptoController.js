@@ -13,6 +13,8 @@ const getcoins = async (req , res )=>{
         }
         const result = await axios(option)
         const {data} = result.data
+        data.sort((a,b)=> a.changePercent24Hr < b.changePercent24Hr)
+
         await crypto_Model.deleteMany()
 
         await data.forEach(a => {
