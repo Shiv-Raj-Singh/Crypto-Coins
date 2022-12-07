@@ -5,27 +5,22 @@ const getcoins = async (req , res )=>{
     try {
         const option = {
             method : "GET" ,
+            headers: {
+                Authorization: " Bearer fe3442f5-8e41-4078-a13d-cabad26802e5",
+              } ,
             url : "https://api.coincap.io/v2/assets",
+            
         }
-
         const result = await axios(option)
         const {data} = result.data
-        const finalData = data.map(a => {
-            return {
-                symbol : a.symbol ,
-                name : a.name , 
-                marketCapUsd : a.marketCapUsd , 
-                priceUsd : a.priceUsd , 
-                changePercent24Hr : a.changePercent24Hr,
-                Shivraj : a.marketCapUsd
-            }
-        });
-    await finalData.forEach(a => {
-           const finalD=  new crypto_Model(a) 
-            finalD.save()          
+        await crypto_Model.deleteMany()
+
+        await data.forEach(a => {
+           const finalDdata=  new crypto_Model(a) 
+           finalDdata.save()          
         });
   
-        res.send(finalData)
+    res.status(200).send({ status:true , data :data})
 
     } catch (error) {
         res.send(error.message)   

@@ -3,14 +3,16 @@ import { model, Schema } from "mongoose";
 const cryptoCoinSchema = new Schema({
     symbol: {
         type: String,
-        unique: true
+        unique: true,
+        required:true
     },
     name: {
         type: String,
         unique: true
     },
     marketCapUsd: String,
-    priceUsd: String
+    priceUsd: String,
+    id:  String 
 })
 
 const crypto_Model = new model("crypto-coins", cryptoCoinSchema)
