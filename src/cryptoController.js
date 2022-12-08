@@ -16,7 +16,7 @@ const getcoins = async (req , res )=>{
         data.sort((a,b)=> a.changePercent24Hr < b.changePercent24Hr)
 
         await crypto_Model.deleteMany()
-
+    //  const data1 = await crypto_Model.insertMany(data)
         await data.forEach(a => {
            const finalDdata=  new crypto_Model(a) 
            finalDdata.save()          
